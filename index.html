@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Verdade Não Pede Permissão</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+}
+
+section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px;
+  flex-direction: column;
+}
+
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+}
+
+.hero {
+  background: black;
+}
+
+.hero h1 {
+  font-size: 2rem;
+  max-width: 700px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 2s ease;
+}
+
+/* Botão arco-íris sempre colorido */
+button {
+  padding: 14px 35px;
+  border: none;
+  background: linear-gradient(90deg, red, orange, yellow, green, blue, violet);
+  color: black;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 30px;
+  border-radius: 8px;
+  transition: 0.4s;
+}
+
+button:hover {
+  filter: brightness(1.2);
+}
+
+/* Animação de fade */
+.fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1.5s ease;
+}
+
+.fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Texto arco-íris */
+.highlight {
+  background: linear-gradient(90deg, red, orange, yellow, green, blue, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Seções claras */
+.light {
+  background: white;
+  color: black;
+}
+
+/* Título grande */
+.big {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+/* Foto com borda arco-íris */
+.foto-revelacao {
+  max-width: 450px;
+  width: 90%;
+  border-radius: 14px;
+  margin-bottom: 30px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 2s ease;
+  filter: grayscale(100%);
+  border: 6px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(90deg, red, orange, yellow, green, blue, violet);
+}
+
+.foto-revelacao.visible {
+  opacity: 1;
+  transform: scale(1);
+  filter: grayscale(0%);
+}
+
+/* Batida de coração */
+.heartbeat {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 15px;
+  height: 15px;
+  background: red;
+  border-radius: 50%;
+  animation: beat 1s infinite;
+}
+
+@keyframes beat {
+  0% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.8); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.6; }
+}
+
+/* H2 com gradiente arco-íris */
+h2 {
+  font-size: 1.8rem;
+  background: linear-gradient(90deg, red, orange, yellow, green, blue, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+footer {
+  background: black;
+  padding: 40px;
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+</style>
+</head>
+<body>
+
+<div class="heartbeat"></div>
+
+<section class="hero">
+  <h1 id="intro">Há coisas que passamos a vida inteira escondendo...</h1>
+  <button onclick="start()">Eu estou pronto</button>
+</section>
+
+<section class="fade">
+  <h2>Não por vergonha.</h2>
+</section>
+
+<section class="fade">
+  <h2>Mas por <span class="highlight">medo</span>.</h2>
+</section>
+
+<section class="fade">
+  <h2>Medo de perder.<br>Medo de decepcionar.<br>Medo de ser quem somos.</h2>
+</section>
+
+<section class="fade">
+  <h2>Hoje o medo acabou.</h2>
+</section>
+
+<section class="light fade">
+  <img src="Andre_e_Joanderson.jpeg" alt="Nós dois" class="foto-revelacao">
+  <h1 class="big">Nós somos namorados.</h1>
+  <p style="margin-top:20px;">E eu nunca mais vou sussurrar isso.</p>
+</section>
+
+<section class="fade">
+  <h2>O amor não precisa de permissão.</h2>
+</section>
+
+<footer>
+  Somos dois homens. Somos um casal. Somos felizes.
+</footer>
+
+<script>
+window.addEventListener("load", () => {
+  document.getElementById("intro").style.opacity = 1;
+  document.getElementById("intro").style.transform = "translateY(0)";
+});
+
+function start() {
+  window.scrollTo({
+    top: window.innerHeight,
+    behavior: "smooth"
+  });
+}
+
+const faders = document.querySelectorAll(".fade");
+const foto = document.querySelector(".foto-revelacao");
+
+function reveal() {
+  const trigger = window.innerHeight - 100;
+
+  faders.forEach(el => {
+    if (el.getBoundingClientRect().top < trigger) {
+      el.classList.add("visible");
+    }
+  });
+
+  if (foto && foto.getBoundingClientRect().top < trigger) {
+    foto.classList.add("visible");
+  }
+}
+
+window.addEventListener("scroll", reveal);
+</script>
+
+</body>
+</html>
